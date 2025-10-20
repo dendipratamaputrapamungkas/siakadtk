@@ -14,9 +14,28 @@
                 <input type="search" name="q" class="form-control" placeholder="Cari NIS atau Nama" value="{{ request('q') }}">
                 <div class="input-group-append">
                     <button class="btn btn-primary" type="submit">Cari</button>
-                </div>
+                </div>   
             </div>
-            <a href="{{ route('siswa.create') }}" class="btn btn-success ml-2">Tambah Siswa</a>
+            <div>
+                <a href="{{ route('siswa.create') }}" class="btn btn-success ml-2">Tambah Siswa</a>
+                <a href="{{ route('siswa.export') }}" class="btn btn-success">Export Excel</a>
+                <a href="{{ route('siswa.exportPdf') }}" class="btn btn-danger mb-3">
+                    <i class="fas fa-file-pdf"></i> Export PDF
+                </a>
+                <form action="{{ route('siswa.import') }}" method="POST" enctype="multipart/form-data" class="mb-3">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-4">
+                            <input type="file" name="file" class="form-control" required>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn btn-success" type="submit">
+                                <i class="fas fa-file-import"></i> Import Excel
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </form>
     </div>
 

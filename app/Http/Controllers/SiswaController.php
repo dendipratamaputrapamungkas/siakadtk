@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Siswa;
 use Illuminate\Http\Request;
+use App\Exports\SiswaExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Imports\SiswaImport;
 
 
 class SiswaController extends Controller
@@ -49,8 +53,29 @@ public function store(Request $request)
 
     return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil ditambahkan');
 }
+public function export()
+{
+    return Excel::download(new SiswaExport, 'data_siswa.xlsx');
+}
+public function exportPdf()
+{
+    $siswas = \App\Models\Siswa::all();
 
-    // /**
+    $pdf = Pdf::loadView('siswa.pdf', compact('siswas'))
+        ->setPaper('a4', 'portrait');
+
+    return $pdf->download('data_siswa.pdf');
+}
+public function import(Request $request)
+{
+    $request->validate([
+        'file' => 'required|mimes:xlsx,xls'
+    ]);
+
+    Excel::import(new SiswaImport, $request->file('file'));
+
+    return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diimport!');
+}    // /**
     //  * Display a listing of the resource.
     //  */
     // public function index()
