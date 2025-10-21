@@ -16,7 +16,7 @@ class SiswaController extends Controller
 {
     $query = Siswa::query();
 
-    // search by nis or nama_lengkap jika ada parameter q
+  
     if ($request->filled('q')) {
         $q = $request->input('q');
         $query->where(function($sub) use ($q) {
@@ -75,7 +75,33 @@ public function import(Request $request)
     Excel::import(new SiswaImport, $request->file('file'));
 
     return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diimport!');
-}    // /**
+}  
+
+public function getData()
+{
+    $siswa = Siswa::select(['id', 'nis', 'nama_lengkap', 'tempatlahir', 'tanggal_lhr', 'jk', 'wali', 'no_hp']);
+
+    return datatables()
+        ->of($siswa)
+        ->addColumn('aksi', function ($row) {
+            $edit = route('siswa.edit', $row->id);
+            $hapus = route('siswa.destroy', $row->id);
+
+            return '
+                <a href="'.$edit.'" class="btn btn-sm btn-warning">Edit</a>
+                <form action="'.$hapus.'" method="POST" style="display:inline-block" onsubmit="return confirm(\'Hapus data?\')">
+                    '.csrf_field().method_field('DELETE').'
+                    <button class="btn btn-sm btn-danger">Hapus</button>
+                </form>
+            ';
+        })
+        ->rawColumns(['aksi'])
+        ->make(true);
+}
+
+
+
+// /**
     //  * Display a listing of the resource.
     //  */
     // public function index()

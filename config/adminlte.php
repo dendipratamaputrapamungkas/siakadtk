@@ -301,6 +301,60 @@ return [
     'menu' => [
         // Navbar items:
         [
+            'text' => 'Dashboard',
+            'url'  => 'dashboard',
+            'icon' => 'fas fa-fw fa-home',
+        ],
+        [
+            'text'    => 'Master Data',
+            'icon'    => 'fas fa-fw fa-database',
+            'submenu' => [
+                [
+                    'text' => 'Data Siswa',
+                    'url'  => 'siswa',
+                    'icon' => 'fas fa-user-graduate',
+                ],
+                [
+                    'text' => 'Data Guru',
+                    'url'  => 'guru',
+                    'icon' => 'fas fa-chalkboard-teacher',
+                ],
+            ],
+        ],
+        [
+            'text'    => 'Import & Export',
+            'icon'    => 'fas fa-file-excel',
+            'submenu' => [
+                [
+                    'text' => 'Import Siswa',
+                    'url'  => 'siswa', // nanti diarahkan ke index siswa
+                    'icon' => 'fas fa-file-upload',
+                ],
+                [
+                    'text' => 'Export Siswa',
+                    'url'  => 'siswa/export', // sesuai route export
+                    'icon' => 'fas fa-file-download',
+                ],
+            ],
+        ],
+        
+        [
+            'text' => 'Pencapaian Mingguan',
+            'url'  => 'pencapaian',
+            'icon' => 'fas fa-star',
+        ],
+        [
+            'text' => 'Pembayaran SPP',
+            'url'  => 'spp',
+            'icon' => 'fas fa-money-bill-wave',
+        ],
+        [
+            'text' => 'Pendaftaran',
+            'url'  => 'pendaftaran',
+            'icon' => 'fas fa-money-bill-wave',
+        ],
+
+        [
             'type' => 'navbar-search',
             'text' => 'search',
             'topnav_right' => true,
