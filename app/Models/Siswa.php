@@ -10,17 +10,6 @@ class Siswa extends Model
     //
     use HasFactory;
 
-    protected $table = 'siswas';
-    public $timestamps = false;
-    protected $fillable = [
-        'nis',
-        'nama_lengkap',
-        'tempatlahir',
-        'tanggal_lhr',
-        'jk',
-        'alamat',
-        'wali',
-        'no_hp',
-
-    ];
+    protected $table = "siswas";
+    protected $guarded = ["id"];
 }
