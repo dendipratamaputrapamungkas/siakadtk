@@ -15,5 +15,15 @@ class Guru extends Model
         'jabatan',
         'no_hp',
         'alamat',
+        'tempatlhr', 
+        'tgl_lhr',
+        'ibu_kandung',
+        'status',
+        'jenisgtk',
+        'kelas_id',
+        'rombel_id',
+        'tingkatpd',
+        'kurikulum',
+        'ruangan'
     ];
 }

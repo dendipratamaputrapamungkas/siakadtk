@@ -6,6 +6,7 @@ use App\Http\Controllers\GuruController;
 use App\Http\Controllers\PencapaianMingguanController;
 use App\Http\Controllers\PembayaranSppController;
 use App\Http\Controllers\PendaftaranController;
+use App\Http\Controllers\TemaRpmController;
 
 Route::get("/", function () {
     return view("welcome");
@@ -34,6 +35,14 @@ Route::resource("siswa", \App\Http\Controllers\SiswaController::class);
 Route::resource("guru", GuruController::class);
 
 Route::resource("pencapaian", PencapaianMingguanController::class);
+
+Route::get('tema-rpm/data', [TemaRpmController::class, 'data'])->name('tema-rpm.data');
+Route::resource('tema-rpm', TemaRpmController::class);
+
+
+
+
+
 
 Route::resource("spp", PembayaranSppController::class);
 Route::get("/spp/export", [

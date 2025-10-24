@@ -21,7 +21,17 @@ return new class extends Migration
             $table->string('nip')->unique()->nullable();
             $table->string('jabatan')->nullable();
             $table->string('no_hp')->nullable();
-            $table->string('alamat')->nullable();
+            $table->string('tenpatlhr')->nullable();
+            $table->string('tgl_lhr')->nullable();
+            $table->string('ibu_kandung')->nullable();
+            $table->string('status')->nullable();
+            $table->string('jenisgtk')->nullable();
+            $table->foreignId('kelas_id')->constrained('kelas')->cascadeOnDelete();
+            $table->foreignId('rombel_id')->constrained('rombels')->cascadeOnDelete();
+            $table->string('tingkatpd')->nullable();
+            $table->string('kurikulum')->nullable();
+            $table->string('walikelas')->nullable();
+            $table->string('ruangan')->nullable();
             $table->timestamps();
         });
         

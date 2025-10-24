@@ -11,16 +11,29 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('siswas', function (Blueprint $table) {
+        Schema::create('siswa', function (Blueprint $table) {
             $table->id();
-            $table->string('nis')->unique();
+            $table->string('nisn')->unique();
             $table->string('nama_lengkap');
-            $table->string('tempatlahir');
+            $table->string('no_kk');
+            $table->string('tempatlhr');
             $table->date('tanggal_lhr');
+        
             $table->enum('jk', ['L','P']);
-            $table->text('alamat')->nullable();
-            $table->string('wali');
+            $table->enum('agama', ['Islam','Kristen','Katolik','Hindu','Budha','Konghucu']);
+        
+            $table->foreignId('kelas_id')->constrained('kelas')->cascadeOnDelete();
+            $table->foreignId('rombel_id')->constrained('rombels')->cascadeOnDelete();
+        
+            $table->string('no_indukpd')->nullable();
+            $table->date('tgl_masuk');
+        
+            $table->text('alamat');
+            $table->string('nama_ayah');
+            $table->string('nama_ibu');
+            $table->string('wali')->nullable();
             $table->string('no_hp')->nullable();
+        
             $table->timestamps();
         });
         
@@ -31,6 +44,12 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('siswa');
+        Schema::table('siswas', function (Blueprint $table) {
+            $table->dropColumn([
+                'nisn','no_kk','tempatlhr','tanggal_lhr','jk','agama',
+                'kelas_id','rombel_id','no_indukpd','tgl_masuk',
+                'alamat','nama_ayah','nama_ibu','wali','no_hp'
+            ]);
+        });
     }
 };
