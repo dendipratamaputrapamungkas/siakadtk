@@ -339,6 +339,11 @@ return [
         ],
         
         [
+            'text' => 'Tema RPM',
+            'url'  => 'tema-rpm',
+            'icon' => 'fas fa-star',
+        ],
+        [
             'text' => 'Pencapaian Mingguan',
             'url'  => 'pencapaian',
             'icon' => 'fas fa-star',

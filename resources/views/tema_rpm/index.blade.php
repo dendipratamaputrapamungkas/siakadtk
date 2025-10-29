@@ -1,6 +1,14 @@
 <!-- resources/views/tema_rpm/index.blade.php -->
-<!doctype html>
-<html>
+@extends('adminlte::page')
+
+@section('title', 'Tema RPM')
+
+@section('content_header')
+    <h1>Tema RPM</h1>
+@stop
+
+@section('content')
+
 <head>
     <meta charset="utf-8">
     <title>List Tema RPM</title>
@@ -34,7 +42,9 @@
         </thead>
     </table>
 </div>
+@stop
 
+@section('js')
 <!-- JS -->
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
@@ -63,5 +73,5 @@
     });
 </script>
 </body>
-</html>
 
+@stop

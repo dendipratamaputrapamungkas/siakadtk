@@ -1,3 +1,13 @@
+@extends('adminlte::page')
+
+@section('title', 'Tema RPM')
+
+@section('content_header')
+    <h1>Tema RPM</h1>
+@stop
+
+@section('content')
+
 <!doctype html>
 <html>
 <head>
@@ -72,3 +82,4 @@
 </div>
 </body>
 </html>
+@stop
