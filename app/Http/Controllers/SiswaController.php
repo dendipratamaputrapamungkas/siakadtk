@@ -22,7 +22,7 @@ class SiswaController extends Controller
         if ($request->filled("q")) {
             $q = $request->input("q");
             $query->where(function ($sub) use ($q) {
-                $sub->where("nis", "like", "%{$q}%")->orWhere(
+                $sub->where("nisn", "like", "%{$q}%")->orWhere(
                     "nama_lengkap",
                     "like",
                     "%{$q}%",
@@ -79,13 +79,22 @@ class SiswaController extends Controller
     {
         $siswa = Siswa::select([
             "id",
-            "nis",
-            "nama_lengkap",
-            "tempatlahir",
-            "tanggal_lhr",
-            "jk",
-            "wali",
-            "no_hp",
+            'nisn',
+        'nama_lengkap',
+        'no_kk',
+        'tempatlhr',
+        'tanggal_lhr',
+        'jk',
+        'agama',
+        'kelas_id',
+        'rombel_id',
+        'no_indukpd',
+        'tgl_masuk',
+        'alamat',
+        'nama_ayah',
+        'nama_ibu',
+        'wali',
+        'no_hp',
         ]);
 
         return datatables()
@@ -120,14 +129,32 @@ class SiswaController extends Controller
     {
         try {
             $data = $request->validate([
-                "nis" => "required",
-                "nama_lengkap" => "required",
-                "tempatlahir" => "required",
-                "tanggal_lhr" => "required",
-                "jk" => "required",
-                "alamat" => "required",
-                "wali" => "required",
-                "no_hp" => "required",
+                // "nisn" => "required",
+                // "nama_lengkap" => "required",
+                // "tempatlahir" => "required",
+                // "tanggal_lhr" => "required",
+                // "jk" => "required",
+                // "alamat" => "required",
+                // "wali" => "required",
+                // "no_hp" => "required",
+                "nisn" => "required",
+                'nama_lengkap'=> "required",
+                'no_kk'=> "required",
+                'tempatlhr'=> "required",
+                'tanggal_lhr'=> "required",
+                'jk'=> "required",
+                'agama'=> "required",
+                'kelas_id',
+                'rombel_id',
+                'no_indukpd'=> "required",
+                'tgl_masuk'=> "required",
+                'alamat'=> "required",
+                'nama_ayah'=> "required",
+                'nama_ibu'=> "required",
+                'wali'=> "required",
+                'no_hp'=> "required",
+
+                
             ]);
 
             Siswa::create($data);

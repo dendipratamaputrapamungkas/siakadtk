@@ -18,9 +18,9 @@
         <div class="card-body">
 
             <div class="form-group">
-                <label>NIS</label>
-                <input type="text" name="nis" class="form-control"  value="{{ old('nis') }}">
-                @error('nis')
+                <label>NISN</label>
+                <input type="text" name="nisn" class="form-control"  value="{{ old('nis') }}">
+                @error('nisn')
                     <div style="color: red;">{{ $message }}</div>
                 @enderror
             </div>
@@ -32,11 +32,17 @@
                         <div style="color: red;">{{ $message }}</div>
                     @enderror
             </div>
-
+            <div class="form-group">
+                <label>NO KK</label>
+                <input type="text" name="no_kk" class="form-control"  value="{{ old('no_kk') }}">
+                    @error('no_kk')
+                        <div style="color: red;">{{ $message }}</div>
+                    @enderror
+            </div>
             <div class="form-group">
                 <label>Tempat Lahir</label>
-                <input type="text" name="tempatlahir" class="form-control"  value="{{ old('tempatlahir') }}">
-                    @error('tempatlahir')
+                <input type="text" name="tempatlhr" class="form-control"  value="{{ old('tempatlhr') }}">
+                    @error('tempatlhr')
                         <div style="color: red;">{{ $message }}</div>
                     @enderror
             </div>
@@ -59,6 +65,60 @@
                     <div style="color: red;">{{ $message }}</div>
                 @enderror
             </div>
+            <div class="form-group">
+                <label>Agama</label>
+                <select name="agama" class="form-control" >
+                    <option value="ISLAM" {{ old('agama') == 'ISLAM' ? 'selected' : '' }}>ISLAM</option>
+                    <option value="KRISTEN" {{ old('agama') == 'KRISTEN' ? 'selected' : '' }}>KRISTEN</option>
+                    <option value="KHATOLIK" {{ old('agama') == 'KHATOLIK' ? 'selected' : '' }}>KHATOLIK</option>
+                    <option value="HINDU" {{ old('agama') == 'HINDU' ? 'selected' : '' }}>HINDU</option>
+                    <option value="BUDHA" {{ old('agama') == 'BUDHA' ? 'selected' : '' }}>BUDHA</option>
+                    <option value="KHONGHUCU" {{ old('agama') == 'KHONGHUCU' ? 'selected' : '' }}>KHONGHUCU</option>
+                </select>
+                    @error('agama')
+                        <div style="color: red;">{{ $message }}</div>
+                    @enderror
+            </div>
+
+            <div class="form-group">
+                <label>Kelas</label>
+               <select name="kelas_id" class="form-control">
+                    <option value="A"{{old('kelas') == 'A'?'selected' : ''}}>A</option>
+                    <option value="B"{{old('kelas') == 'B'?'selected' : ''}}>B</option>
+               </select>
+                @error('kelas_id')
+                    <div style="color: red;">{{ $message }}</div>
+                @enderror
+            </div>
+ 
+            <div class="form-group">
+                <label>Rombongan Belajar</label>
+               <select name="rombel_id" class="form-control">
+                    <option value="A1"{{old('kelas') == 'A1'?'selected' : ''}}>A1</option>
+                    <option value="A2"{{old('kelas') == 'A2'?'selected' : ''}}>A2</option>
+                    <option value="B1"{{old('kelas') == 'B1'?'selected' : ''}}>B1</option>
+                    <option value="B2"{{old('kelas') == 'B2'?'selected' : ''}}>B2</option>
+               </select>
+                @error('rombel_id')
+                    <div style="color: red;">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label>No Induk Peserta Didik</label>
+                <textarea name="no_indukpd" class="form-control">{{ old('no_indukpd') }}</textarea>
+                @error('no_indukpd')
+                    <div style="color: red;">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label>Tanggal Masuk</label>
+                <input type="date" name="tgl_masuk" class="form-control"  value="{{ old('tgl_masuk') }}">
+                    @error('tgl_masuk')
+                        <div style="color: red;">{{ $message }}</div>
+                    @enderror
+            </div>
 
             <div class="form-group">
                 <label>Alamat</label>
@@ -66,6 +126,22 @@
                 @error('alamat')
                     <div style="color: red;">{{ $message }}</div>
                 @enderror
+            </div>
+
+            <div class="form-group">
+                <label>Nama Ayah</label>
+                <textarea name="nama_ayah" class="form-control">{{ old('nama_ayah') }}</textarea>
+                @error('nama_ayah')
+                    <div style="color: red;">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="form-group">
+                <label>Nama Ibu</label>
+                <input type="text" name="nama_ibu" class="form-control" value="{{ old('nama_ibu') }}">
+                    @error('nama_ibu')
+                        <div style="color: red;">{{ $message }}</div>
+                    @enderror
             </div>
 
             <div class="form-group">

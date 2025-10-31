@@ -6,19 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    // public function up(): void
-    // {
-    //     Schema::create('tema_r_p_m_s', function (Blueprint $table) {
-    //         $table->id();
-    //         $table->string('jdl_tematik_rpm');
-    //         $table->string('')
-    //         $table->timestamps();
-    //     });
-        
-    // }
+   
     public function up(): void
     {
         Schema::create('tema_r_p_m_s', function (Blueprint $table) {
@@ -41,3 +29,17 @@ return new class extends Migration
         Schema::dropIfExists('tema_r_p_m_s');
     }
 };
+
+ /**
+     * Run the migrations.
+     */
+    // public function up(): void
+    // {
+    //     Schema::create('tema_r_p_m_s', function (Blueprint $table) {
+    //         $table->id();
+    //         $table->string('jdl_tematik_rpm');
+    //         $table->string('')
+    //         $table->timestamps();
+    //     });
+        
+    // }
