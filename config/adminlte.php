@@ -358,7 +358,20 @@ return [
             'url'  => 'pendaftaran',
             'icon' => 'fas fa-money-bill-wave',
         ],
-
+        [
+            'text' => 'Nilai',
+            'url'  => 'nilai',
+            'icon' => 'fas fa-money-bill-wave',
+        ],[
+            'text' => 'Absensi',
+            'url'  => 'absensi',
+            'icon' => 'fas fa-money-bill-wave',
+        ],
+        [
+            'text' => 'Rapot',
+            'url'  => 'rapot',
+            'icon' => 'fas fa-money-bill-wave',
+        ],
         [
             'type' => 'navbar-search',
             'text' => 'search',

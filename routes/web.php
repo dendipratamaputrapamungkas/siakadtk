@@ -7,6 +7,10 @@ use App\Http\Controllers\PencapaianMingguanController;
 use App\Http\Controllers\PembayaranSppController;
 use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\TemaRpmController;
+use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\AbsensiController;
+
+
 
 Route::get("/", function () {
     return view("welcome");
@@ -16,7 +20,7 @@ Route::get("/dashboard", [
     App\Http\Controllers\DashboardController::class,
     "index",
 ])->name("dashboard");
-
+// SISWA
 Route::get("/siswa/export", [SiswaController::class, "export"])->name(
     "siswa.export",
 );
@@ -32,15 +36,35 @@ Route::get("/siswa/data", [SiswaController::class, "getData"])->name(
 );
 Route::resource("siswa", \App\Http\Controllers\SiswaController::class);
 
-Route::resource("guru", GuruController::class);
+// GURU
+// Route::resource("guru", GuruController::class);
+Route::get('/guru', [GuruController::class, 'index'])->name('guru.index');
+Route::get('/guru/data', [GuruController::class, 'data'])->name('guru.data');
+Route::get('/guru/create', [GuruController::class, 'create'])->name('guru.create');
+Route::get('/guru/{id}/edit', [GuruController::class, 'edit'])->name('guru.edit');
+Route::delete('/guru/{id}', [GuruController::class, 'destroy'])->name('guru.destroy');
+Route::post('/guru/store', [GuruController::class, 'store'])->name('guru.store');
+
 
 Route::resource("pencapaian", PencapaianMingguanController::class);
 
 Route::get('tema-rpm/data', [TemaRpmController::class, 'data'])->name('tema-rpm.data');
 Route::resource('tema-rpm', TemaRpmController::class);
 
+//Nilai
+Route::prefix('nilai')->group(function() {
+    Route::get('/', [NilaiController::class, 'index'])->name('nilai.index');
+    Route::get('/kelas/{kelas}', [NilaiController::class, 'kelas'])->name('nilai.kelas');
+    Route::get('/create/{tema}', [NilaiController::class, 'create'])->name('nilai.create');
+    Route::post('/', [NilaiController::class, 'store'])->name('nilai.store');
+});
 
-
+//absensi
+Route::prefix('absensi')->group(function() {
+    Route::get('/', [AbsensiController::class, 'index'])->name('absensi.index');
+    Route::get('/create', [AbsensiController::class, 'create'])->name('absensi.create');
+    Route::post('/', [AbsensiController::class, 'store'])->name('absensi.store');
+});
 
 
 
