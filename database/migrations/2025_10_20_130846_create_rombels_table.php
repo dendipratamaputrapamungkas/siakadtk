@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('rombels', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kelas_id')->constrained('kelas')->cascadeOnDelete();
-    $table->string('nama'); // A1, A2, B1, B2
+            $table->string('nama'); // A1, A2, B1, B2
             $table->timestamps();
         });
     }

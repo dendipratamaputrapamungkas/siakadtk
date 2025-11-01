@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('absensis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('siswa_id')->constrained('siswa')->cascadeOnDelete();
+            $table->foreignId('siswa_id')->constrained('siswas')->cascadeOnDelete();
             $table->foreignId('kelas_id')->constrained('kelas')->cascadeOnDelete();
             $table->foreignId('guru_id')->constrained('gurus')->cascadeOnDelete();
             $table->integer('sakit')->default(0);

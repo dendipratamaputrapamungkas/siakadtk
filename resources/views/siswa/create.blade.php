@@ -83,21 +83,21 @@
             <div class="form-group">
                 <label>Kelas</label>
                <select name="kelas_id" class="form-control">
-                    <option value="A"{{old('kelas') == 'A'?'selected' : ''}}>A</option>
-                    <option value="B"{{old('kelas') == 'B'?'selected' : ''}}>B</option>
+                    @foreach($kelas as $item)
+                        <option value="{{$item->id}}" {{old('kelas') == $item->id ?'selected' : ''}}>{{$item->kelas}}</option>
+                    @endforeach
                </select>
                 @error('kelas_id')
                     <div style="color: red;">{{ $message }}</div>
                 @enderror
             </div>
- 
+
             <div class="form-group">
                 <label>Rombongan Belajar</label>
                <select name="rombel_id" class="form-control">
-                    <option value="A1"{{old('kelas') == 'A1'?'selected' : ''}}>A1</option>
-                    <option value="A2"{{old('kelas') == 'A2'?'selected' : ''}}>A2</option>
-                    <option value="B1"{{old('kelas') == 'B1'?'selected' : ''}}>B1</option>
-                    <option value="B2"{{old('kelas') == 'B2'?'selected' : ''}}>B2</option>
+                    @foreach($rombel as $item)
+                        <option value="{{$item->id}}"{{old('kelas') == $item->id ?'selected' : ''}}>{{$item->nama}}</option>
+                    @endforeach
                </select>
                 @error('rombel_id')
                     <div style="color: red;">{{ $message }}</div>

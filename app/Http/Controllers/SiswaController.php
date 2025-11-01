@@ -1,13 +1,14 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\Siswa;
-use Illuminate\Http\Request;
 use App\Exports\SiswaExport;
-use Maatwebsite\Excel\Facades\Excel;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Imports\SiswaImport;
+use App\Models\Kelas;
+use App\Models\Rombel;
+use App\Models\Siswa;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use PHPUnit\Framework\MockObject\Exception;
 
 class SiswaController extends Controller
@@ -15,6 +16,19 @@ class SiswaController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public $kelas;
+
+    public $rombel;
+
+    public $siswa;
+
+    public function __construct()
+    {
+        $this->kelas  = new Kelas();
+        $this->rombel = new Rombel();
+        $this->siswa  = new Siswa();
+    }
+
     public function index(Request $request)
     {
         $query = Siswa::query();
@@ -44,7 +58,10 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        return view("siswa.create");
+        $kelas  = $this->kelas->getAllData();
+        $rombel = $this->rombel->getAllData();
+
+        return view("siswa.create", compact("kelas", "rombel"));
     }
 
     public function export()
@@ -80,39 +97,39 @@ class SiswaController extends Controller
         $siswa = Siswa::select([
             "id",
             'nisn',
-        'nama_lengkap',
-        'no_kk',
-        'tempatlhr',
-        'tanggal_lhr',
-        'jk',
-        'agama',
-        'kelas_id',
-        'rombel_id',
-        'no_indukpd',
-        'tgl_masuk',
-        'alamat',
-        'nama_ayah',
-        'nama_ibu',
-        'wali',
-        'no_hp',
+            'nama_lengkap',
+            'no_kk',
+            'tempatlhr',
+            'tanggal_lhr',
+            'jk',
+            'agama',
+            'kelas_id',
+            'rombel_id',
+            'no_indukpd',
+            'tgl_masuk',
+            'alamat',
+            'nama_ayah',
+            'nama_ibu',
+            'wali',
+            'no_hp',
         ]);
 
         return datatables()
             ->of($siswa)
             ->addColumn("aksi", function ($row) {
-                $edit = route("siswa.edit", $row->id);
+                $edit  = route("siswa.edit", $row->id);
                 $hapus = route("siswa.destroy", $row->id);
 
                 return '
                 <a href="' .
-                    $edit .
-                    '" class="btn btn-sm btn-warning">Edit</a>
+                $edit .
+                '" class="btn btn-sm btn-warning">Edit</a>
                 <form action="' .
-                    $hapus .
-                    '" method="POST" style="display:inline-block" onsubmit="return confirm(\'Hapus data?\')">
+                $hapus .
+                '" method="POST" style="display:inline-block" onsubmit="return confirm(\'Hapus data?\')">
                     ' .
-                    csrf_field() .
-                    method_field("DELETE") .
+                csrf_field() .
+                method_field("DELETE") .
                     '
                     <button class="btn btn-sm btn-danger">Hapus</button>
                 </form>
@@ -137,24 +154,23 @@ class SiswaController extends Controller
                 // "alamat" => "required",
                 // "wali" => "required",
                 // "no_hp" => "required",
-                "nisn" => "required",
-                'nama_lengkap'=> "required",
-                'no_kk'=> "required",
-                'tempatlhr'=> "required",
-                'tanggal_lhr'=> "required",
-                'jk'=> "required",
-                'agama'=> "required",
-                'kelas_id',
-                'rombel_id',
-                'no_indukpd'=> "required",
-                'tgl_masuk'=> "required",
-                'alamat'=> "required",
-                'nama_ayah'=> "required",
-                'nama_ibu'=> "required",
-                'wali'=> "required",
-                'no_hp'=> "required",
+                "nisn"         => "required",
+                'nama_lengkap' => "required",
+                'no_kk'        => "required",
+                'tempatlhr'    => "required",
+                'tanggal_lhr'  => "required",
+                'jk'           => "required",
+                'agama'        => "required",
+                'kelas_id'     => "required",
+                'rombel_id'    => "nullable",
+                'no_indukpd'   => "required",
+                'tgl_masuk'    => "required",
+                'alamat'       => "required",
+                'nama_ayah'    => "required",
+                'nama_ibu'     => "required",
+                'wali'         => "required",
+                'no_hp'        => "required",
 
-                
             ]);
 
             Siswa::create($data);
@@ -170,20 +186,27 @@ class SiswaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {}
+    public function show(string $id)
+    {}
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id) {}
+    public function edit(string $id)
+    {}
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id) {}
+    public function update(Request $request, string $id)
+    {}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id) {}
+    public function destroy(string $id)
+    {
+        $this->siswa->destroy($id);
+        return to_route("siswa.index")->with("success", "Data siswa berhasil dihapus");
+    }
 }

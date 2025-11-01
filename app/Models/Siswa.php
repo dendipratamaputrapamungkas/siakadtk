@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,8 +9,8 @@ class Siswa extends Model
     //
     use HasFactory;
 
-    protected $table = "siswa";
-    protected $guarded = ["id"];
+    protected $table    = "siswas";
+    protected $guarded  = ["id"];
     protected $fillable = [
         'nisn',
         'nama_lengkap',
@@ -29,17 +28,15 @@ class Siswa extends Model
         'nama_ibu',
         'wali',
         'no_hp',
-        ];
+    ];
     public function kelas()
     {
-    return $this->belongsTo(Kelas::class);
+        return $this->belongsTo(Kelas::class);
     }
 
     public function rombel()
     {
-    return $this->belongsTo(Rombel::class);
+        return $this->belongsTo(Rombel::class);
     }
-
-
 
 }

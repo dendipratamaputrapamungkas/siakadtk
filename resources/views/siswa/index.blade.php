@@ -48,13 +48,13 @@ $(function() {
         ajax: '{{ route('siswa.data') }}',
         columns: [
             { data: 'id', name: 'id' },
-            { data: 'nis', name: 'nis' },
-            { data: 'nama_lengkap', name: 'nama_lengkap' },
-            { data: 'tempatlahir', name: 'tempatlahir' },
-            { data: 'tanggal_lhr', name: 'tanggal_lhr' },
-            { data: 'jk', name: 'jk' },
-            { data: 'wali', name: 'wali' },
-            { data: 'no_hp', name: 'no_hp' },
+            { data: 'nisn', name: 'NISN' },
+            { data: 'nama_lengkap', name: 'Nama Lengkap' },
+            { data: 'tempatlhr', name: 'Tempat Lahir' },
+            { data: 'tanggal_lhr', name: 'Tanggal Lahir' },
+            { data: 'jk', name: 'Jenis Kelamin' },
+            { data: 'wali', name: 'Wali' },
+            { data: 'no_hp', name: 'No Hp' },
             { data: 'aksi', name: 'aksi', orderable: false, searchable: false }
         ]
     });
