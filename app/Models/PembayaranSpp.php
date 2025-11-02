@@ -11,6 +11,14 @@ class PembayaranSpp extends Model
 
     protected $table = 'pembayaran_spp';
 
+    // protected $fillable = [
+    //     'siswa_id',
+    //     'bulan',
+    //     'tahun',
+    //     'jumlah',
+    //     'tanggal_bayar',
+    //     'status',
+    // ];
     protected $fillable = [
         'siswa_id',
         'bulan',
@@ -18,8 +26,10 @@ class PembayaranSpp extends Model
         'jumlah',
         'tanggal_bayar',
         'status',
+        'bukti_bayar',
+        'status_validasi',
     ];
-
+    
     public function siswa()
     {
         return $this->belongsTo(Siswa::class);

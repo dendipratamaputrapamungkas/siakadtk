@@ -29,6 +29,12 @@ class Siswa extends Model
         'wali',
         'no_hp',
     ];
+    // App\Models\Siswa.php
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
     public function kelas()
     {
         return $this->belongsTo(Kelas::class);
