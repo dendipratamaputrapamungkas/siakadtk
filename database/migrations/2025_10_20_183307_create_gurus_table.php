@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('nip')->unique()->nullable();
             $table->string('jabatan')->nullable();
             $table->string('no_hp')->nullable();
-            $table->string('tenpatlhr')->nullable();
+            $table->string('tempatlhr')->nullable();
             $table->string('tgl_lhr')->nullable();
             $table->string('ibu_kandung')->nullable();
             $table->string('status')->nullable();

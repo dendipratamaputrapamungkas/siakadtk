@@ -38,12 +38,15 @@ Route::resource("siswa", \App\Http\Controllers\SiswaController::class);
 
 // GURU
 // Route::resource("guru", GuruController::class);
+
 Route::get('/guru', [GuruController::class, 'index'])->name('guru.index');
-Route::get('/guru/data', [GuruController::class, 'data'])->name('guru.data');
 Route::get('/guru/create', [GuruController::class, 'create'])->name('guru.create');
+Route::post('/guru', [GuruController::class, 'store'])->name('guru.store');
+Route::get('/guru/data', [GuruController::class, 'getData'])->name('guru.data');
+Route::get('/guru/{id}', [GuruController::class, 'show'])->name('guru.show');
 Route::get('/guru/{id}/edit', [GuruController::class, 'edit'])->name('guru.edit');
+Route::put('/guru/{id}', [GuruController::class, 'update'])->name('guru.update');
 Route::delete('/guru/{id}', [GuruController::class, 'destroy'])->name('guru.destroy');
-Route::post('/guru/store', [GuruController::class, 'store'])->name('guru.store');
 
 
 Route::resource("pencapaian", PencapaianMingguanController::class);

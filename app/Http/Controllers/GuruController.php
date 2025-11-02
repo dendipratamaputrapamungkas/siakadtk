@@ -14,35 +14,41 @@ class GuruController extends Controller
     {
         return view('guru.index');
     }
-
-    public function data()
+    
+    public function getData()
     {
-        $query = Guru::with(['kelas', 'rombel'])->select('gurus.*');
-
-        return DataTables::of($query)
+        $guru = Guru::with(['kelas', 'rombel'])->select('gurus.*');
+    
+        return DataTables::of($guru)
             ->addIndexColumn()
-            ->addColumn('aksi', function ($guru) {
-                $edit = '<a href="' . route('guru.edit', $guru->id) . '" class="btn btn-warning btn-sm">
-                            <i class="fas fa-edit"></i>
-                         </a>';
-                $delete = '<form action="' . route('guru.destroy', $guru->id) . '" method="POST" style="display:inline;">
-                                ' . csrf_field() . method_field('DELETE') . '
-                                <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm(\'Yakin mau hapus data ini?\')">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>';
-                return $edit . ' ' . $delete;
+            ->addColumn('kelas', function($row){
+                return $row->kelas->nama ?? '-';
             })
-            ->addColumn('kelas', function ($guru) {
-                return $guru->kelas->nama ?? '-';
+            ->addColumn('rombel', function($row){
+                return $row->rombel->nama ?? '-';
             })
-            ->addColumn('rombel', function ($guru) {
-                return $guru->rombel->nama ?? '-';
+            ->addColumn('aksi', function($row){
+                $btn = '
+                    <a href="'.route('guru.show', $row->id).'" class="btn btn-info btn-sm">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <a href="'.route('guru.edit', $row->id).'" class="btn btn-warning btn-sm">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <form action="'.route('guru.destroy', $row->id).'" method="POST" style="display:inline;">
+                        '.csrf_field().method_field('DELETE').'
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Yakin hapus data ini?\')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                ';
+                return $btn;
             })
             ->rawColumns(['aksi'])
             ->make(true);
     }
+    
+    
     public function create()
     {
         $kelas = Kelas::all();
@@ -74,11 +80,21 @@ class GuruController extends Controller
     
         return redirect()->route('guru.index')->with('success', 'Data guru berhasil ditambahkan!');
     }
+
+
+    public function show($id)
+    {
+        $guru = Guru::findOrFail($id);
+        return view('guru.show', compact('guru'));
+    }
+    
+
     public function edit($id)
     {
         $guru = Guru::findOrFail($id);
-        $kelas = Kelas::all();
-        $rombels = Rombel::all();
+        $kelas = \App\Models\Kelas::all();
+        $rombels = \App\Models\Rombel::all();
+    
         return view('guru.edit', compact('guru', 'kelas', 'rombels'));
     }
     
@@ -91,7 +107,7 @@ class GuruController extends Controller
             'nip' => 'nullable|string|max:50|unique:gurus,nip,'.$guru->id,
             'jabatan' => 'nullable|string|max:100',
             'no_hp' => 'nullable|string|max:20',
-            'tenpatlhr' => 'nullable|string|max:100',
+            'tempatlhr' => 'nullable|string|max:100',
             'tgl_lhr' => 'nullable|date',
             'ibu_kandung' => 'nullable|string|max:255',
             'status' => 'nullable|string|max:50',

@@ -26,4 +26,14 @@ class Guru extends Model
         'kurikulum',
         'ruangan'
     ];
+        public function kelas()
+    {
+        return $this->belongsTo(Kelas::class);
+    }
+
+    public function rombel()
+    {
+        return $this->belongsTo(Rombel::class);
+    }
+
 }
