@@ -9,7 +9,17 @@ use App\Http\Controllers\PendaftaranController;
 use App\Http\Controllers\TemaRpmController;
 use App\Http\Controllers\NilaiController;
 use App\Http\Controllers\AbsensiController;
+use App\Http\Controllers\AuthController;
 
+// auth routes
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// dashboard routes
+Route::middleware(['auth','role:admin'])->get('/admin/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
+Route::middleware(['auth','role:guru'])->get('/guru/dashboard', fn() => view('guru.dashboard'))->name('guru.dashboard');
+Route::middleware(['auth','role:ortu'])->get('/ortu/dashboard', fn() => view('ortu.dashboard'))->name('ortu.dashboard');
 
 
 Route::get("/", function () {

@@ -94,7 +94,52 @@ class PembayaranSppController extends Controller
     {
         return Excel::download(new PembayaranSppExport, 'data_pembayaran_spp.xlsx');
     }
+
+   // Ortu lihat daftar pembayaran anaknya
+public function showByOrtu()
+{
+    $user = auth()->user();
+    $siswa = \App\Models\Siswa::where('user_id', $user->id)->first();
+
+    $pembayaran = PembayaranSpp::where('siswa_id', $siswa->id)->get();
+
+    return view('ortu.spp.index', compact('pembayaran', 'siswa'));
 }
+
+// Ortu upload bukti bayar
+public function uploadBukti(Request $request)
+{
+    $request->validate([
+        'pembayaran_id' => 'required|exists:pembayaran_spp,id',
+        'bukti_bayar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+    ]);
+
+    $file = $request->file('bukti_bayar');
+    $filename = time().'_'.$file->getClientOriginalName();
+    $file->move(public_path('uploads/bukti_spp'), $filename);
+
+    $pembayaran = PembayaranSpp::findOrFail($request->pembayaran_id);
+    $pembayaran->bukti_bayar = $filename;
+    $pembayaran->status_validasi = 'Menunggu';
+    $pembayaran->save();
+
+    return back()->with('success', 'Bukti pembayaran berhasil diupload! Menunggu validasi admin.');
+}
+
+public function validasi(Request $request, $id)
+{
+    $pembayaran = PembayaranSpp::findOrFail($id);
+    $pembayaran->status_validasi = $request->aksi;
+    $pembayaran->status = $request->aksi == 'Disetujui' ? 'Lunas' : 'Belum Lunas';
+    $pembayaran->save();
+
+    return back()->with('success', 'Validasi pembayaran berhasil diperbarui!');
+}
+
+
+}
+
+
 
 // class PembayaranSppController extends Controller
 // {

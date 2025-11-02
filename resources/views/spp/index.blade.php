@@ -44,6 +44,19 @@ $(function() {
             { data: 'status', name: 'status' },
             { data: 'action', name: 'action', orderable: false, searchable: false },
         ]
+        ->addColumn('validasi', function ($row) {
+    if ($row->status_validasi == 'Menunggu') {
+        return '
+            <form method="POST" action="'.route('spp.validasi', $row->id).'">
+                '.csrf_field().'
+                <button name="aksi" value="Disetujui" class="btn btn-success btn-sm">Setujui</button>
+                <button name="aksi" value="Ditolak" class="btn btn-danger btn-sm">Tolak</button>
+            </form>
+        ';
+    }
+    return '<span class="badge bg-'.($row->status_validasi == 'Disetujui' ? 'success' : 'danger').'">'.$row->status_validasi.'</span>';
+})
+
     });
 });
 </script>
