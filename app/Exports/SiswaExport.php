@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Exports;
 
 use App\Models\Siswa;
@@ -9,14 +10,21 @@ class SiswaExport implements FromCollection, WithHeadings
 {
     public function collection()
     {
-        // Ambil kolom sesuai model lo
         return Siswa::select(
-            'nis',
+            'nisn',
             'nama_lengkap',
-            'tempatlahir',
+            'no_kk',
+            'tempatlhr',
             'tanggal_lhr',
             'jk',
+            'agama',
+            'kelas_id',
+            'rombel_id',
+            'no_indukpd',
+            'tgl_masuk',
             'alamat',
+            'nama_ayah',
+            'nama_ibu',
             'wali',
             'no_hp'
         )->get();
@@ -24,16 +32,23 @@ class SiswaExport implements FromCollection, WithHeadings
 
     public function headings(): array
     {
-        // Judul kolom di Excel
         return [
-            'NIS',
+            'NISN',
             'Nama Lengkap',
+            'No KK',
             'Tempat Lahir',
             'Tanggal Lahir',
             'Jenis Kelamin',
+            'Agama',
+            'Kelas ID',
+            'Rombel ID',
+            'No Induk PD',
+            'Tanggal Masuk',
             'Alamat',
-            'Nama Wali',
-            'No. HP',
+            'Nama Ayah',
+            'Nama Ibu',
+            'Wali',
+            'No HP',
         ];
     }
 }

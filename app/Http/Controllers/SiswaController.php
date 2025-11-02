@@ -119,8 +119,10 @@ class SiswaController extends Controller
             ->addColumn("aksi", function ($row) {
                 $edit  = route("siswa.edit", $row->id);
                 $hapus = route("siswa.destroy", $row->id);
+                $show  = route("siswa.show", $row->id);
 
                 return '
+                <a href="' . $show . '" class="btn btn-sm btn-info">Lihat</a>
                 <a href="' .
                 $edit .
                 '" class="btn btn-sm btn-warning">Edit</a>
@@ -146,14 +148,6 @@ class SiswaController extends Controller
     {
         try {
             $data = $request->validate([
-                // "nisn" => "required",
-                // "nama_lengkap" => "required",
-                // "tempatlahir" => "required",
-                // "tanggal_lhr" => "required",
-                // "jk" => "required",
-                // "alamat" => "required",
-                // "wali" => "required",
-                // "no_hp" => "required",
                 "nisn"         => "required",
                 'nama_lengkap' => "required",
                 'no_kk'        => "required",
@@ -187,19 +181,54 @@ class SiswaController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
-    {}
+    {
+        $siswa = Siswa::with(['kelas', 'rombel'])->findOrFail($id);
+        return view('siswa.show', compact('siswa'));
+    }
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
-    {}
+    {
+        $siswa = Siswa::findOrFail($id);
+    $kelas = Kelas::all();
+    $rombel = Rombel::all();
+    return view('siswa.edit', compact('siswa', 'kelas', 'rombel'));
+    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {}
+    {
+        $data = $request->validate([
+            "nisn"         => "required",
+            'nama_lengkap' => "required",
+            'no_kk'        => "required",
+            'tempatlhr'    => "required",
+            'tanggal_lhr'  => "required",
+            'jk'           => "required",
+            'agama'        => "required",
+            'kelas_id'     => "required",
+            'rombel_id'    => "required",
+            'no_indukpd'   => "required",
+            'tgl_masuk'    => "required",
+            'alamat'       => "required",
+            'nama_ayah'    => "required",
+            'nama_ibu'     => "required",
+            'wali'         => "required",
+            'no_hp'        => "required",
+        ]);
+    
+        $siswa = Siswa::findOrFail($id);
+        $siswa->update($data);
+    
+        return redirect()
+            ->route('siswa.index')
+            ->with('success', 'Data siswa berhasil diperbarui!');
+        
+    }
 
     /**
      * Remove the specified resource from storage.
